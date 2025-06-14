@@ -190,37 +190,46 @@ def create_daily_cumulative_graph(daily_data, metric_name, unit, title, color_da
                             line=dict(color=color_daily, width=2), marker=dict(size=4),
                             hovertemplate=f'売上日: %{{x|%Y-%m-%d}}<br>日次{metric_name}: %{{y:,.0f}}{unit}<extra></extra>'))
     
+    # 基本的なレイアウト設定
     fig.update_layout(
-        title_text=title,
+        title=title,
         xaxis_title='売上日',
-        yaxis=dict(
-            title=f'日次{metric_name} ({unit})',
-            titlefont=dict(color=color_daily),
-            tickfont=dict(color=color_daily)
-        ),
-        yaxis2=dict(
-            title=f'累計{metric_name} ({unit})',
-            titlefont=dict(color=color_cumulative),
-            tickfont=dict(color=color_cumulative),
-            overlaying='y',
-            side='right'
-        ),
-        hovermode="x unified",
-        legend_title_text='',
-        height=350, # 高さを調整
-        showlegend=True
+        height=350
     )
     
-    # 凡例の位置を別途設定
-    fig.update_layout(
-        legend=dict(
-            orientation="h",
-            yanchor="top",
-            y=1.1,
-            xanchor="center",
-            x=0.5
-        )
+    # Y軸の設定
+    fig.update_yaxes(
+        title=f'日次{metric_name} ({unit})',
+        titlefont=dict(color=color_daily),
+        tickfont=dict(color=color_daily),
+        side='left'
     )
+    
+    fig.update_yaxes(
+        title=f'累計{metric_name} ({unit})',
+        titlefont=dict(color=color_cumulative),
+        tickfont=dict(color=color_cumulative),
+        overlaying='y',
+        side='right'
+    )
+    
+    # ホバーモードの設定
+    fig.update_layout(hovermode="x unified")
+    
+    # 凡例の設定（安全な方法）
+    try:
+        fig.update_layout(
+            legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=1.1,
+                xanchor="center",
+                x=0.5
+            )
+        )
+    except:
+        # エラーが発生した場合はデフォルトの凡例を使用
+        pass
     
     return fig
 
