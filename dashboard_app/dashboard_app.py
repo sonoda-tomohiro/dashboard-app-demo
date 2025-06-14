@@ -208,8 +208,20 @@ def create_daily_cumulative_graph(daily_data, metric_name, unit, title, color_da
         hovermode="x unified",
         legend_title_text='',
         height=350, # 高さを調整
-        legend=dict(orientation="h", yanchor="top", y=1.1, xanchor="center", x=0.5) # 凡例をグラフの上に中央揃えで配置
+        showlegend=True
     )
+    
+    # 凡例の位置を別途設定
+    fig.update_layout(
+        legend=dict(
+            orientation="h",
+            yanchor="top",
+            y=1.1,
+            xanchor="center",
+            x=0.5
+        )
+    )
+    
     return fig
 
 # --- タイトルをサイドバーへ移動 ---
