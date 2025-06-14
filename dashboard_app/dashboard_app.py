@@ -197,17 +197,21 @@ def create_daily_cumulative_graph(daily_data, metric_name, unit, title, color_da
         height=350
     )
     
-    # Y軸の設定
+    # Y軸の設定（新しいAPI形式）
     fig.update_yaxes(
-        title=f'日次{metric_name} ({unit})',
-        titlefont=dict(color=color_daily),
+        title=dict(
+            text=f'日次{metric_name} ({unit})',
+            font=dict(color=color_daily)
+        ),
         tickfont=dict(color=color_daily),
         side='left'
     )
     
     fig.update_yaxes(
-        title=f'累計{metric_name} ({unit})',
-        titlefont=dict(color=color_cumulative),
+        title=dict(
+            text=f'累計{metric_name} ({unit})',
+            font=dict(color=color_cumulative)
+        ),
         tickfont=dict(color=color_cumulative),
         overlaying='y',
         side='right'
